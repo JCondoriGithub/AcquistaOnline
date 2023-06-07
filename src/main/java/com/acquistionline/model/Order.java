@@ -23,7 +23,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "table_orders")
+@Table(name = "orders_table")
 public class Order {
 
 	@Id
