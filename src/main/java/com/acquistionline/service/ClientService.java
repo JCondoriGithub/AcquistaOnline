@@ -2,7 +2,6 @@ package com.acquistionline.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,10 +42,19 @@ public class ClientService implements InterfaceClientService {
 		if(foundClient.isEmpty())
 			return Optional.empty();
 		
-		Client newClient = new Client();
-		BeanUtils.copyProperties(client, newClient);
+		if(client.getClientCode() != null)
+			foundClient.get().setClientCode(client.getClientCode());
+					
+		if(client.getName() != null)
+			foundClient.get().setName(client.getName());
 		
-		clientRepo.save(newClient);
+		if(client.getSurname() != null)
+			foundClient.get().setSurname(client.getSurname());
+		
+		if(client.getEmail() != null)
+			foundClient.get().setEmail(client.getEmail());
+		
+		clientRepo.save(foundClient.get());
 		
 		return foundClient;
 	}
