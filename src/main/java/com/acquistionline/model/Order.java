@@ -28,16 +28,16 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "operation_code", nullable = false)
-	private int operationCode;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "client_code", nullable = false)
+	@Column(name = "operation_code")
+	private int code;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "client_code", nullable = true)
 	private Client client;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	/*@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_product", nullable = false)
-	private Product product;
+	private Product product;*/
 	
 	@Column(name = "payment_type", nullable = false)
 	private String paymentType;

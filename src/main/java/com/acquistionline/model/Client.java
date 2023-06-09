@@ -27,7 +27,7 @@ public class Client {
 
 	@Id
 	@Column(name = "client_code", nullable = false)
-	private String clientCode;
+	private String code;
 	
 	@Column(nullable = false)
 	private String name, surname;

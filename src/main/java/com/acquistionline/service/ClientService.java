@@ -42,8 +42,8 @@ public class ClientService implements InterfaceClientService {
 		if(foundClient.isEmpty())
 			return Optional.empty();
 		
-		if(client.getClientCode() != null)
-			foundClient.get().setClientCode(client.getClientCode());
+		if(client.getCode() != null)
+			foundClient.get().setCode(client.getCode());
 					
 		if(client.getName() != null)
 			foundClient.get().setName(client.getName());

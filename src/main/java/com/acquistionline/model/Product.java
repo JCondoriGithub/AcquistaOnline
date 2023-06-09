@@ -26,7 +26,7 @@ import lombok.ToString;
 public class Product {
 
 	@Id
-	@Column(name = "id_product")
+	@Column(name = "id_product", nullable = false)
 	private String id;
 	
 	@Column(nullable = false)
@@ -37,6 +37,6 @@ public class Product {
 	
 	private String description;
 	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-	private Set<Order> orders;
+	/*@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private Set<Order> orders;*/
 }
