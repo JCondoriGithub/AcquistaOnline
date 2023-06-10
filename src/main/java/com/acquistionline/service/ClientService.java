@@ -6,13 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.acquistionline.model.Client;
+import com.acquistionline.model.Order;
 import com.acquistionline.repository.InterfaceClientRepo;
+import com.acquistionline.repository.InterfaceOrderRepo;
 
 @Service
 public class ClientService implements InterfaceClientService {
 	
 	@Autowired
 	private InterfaceClientRepo clientRepo;
+	
+	@Autowired
+	private InterfaceOrderRepo orderRepo;
 
 	public ClientService() {
 		super();
@@ -66,6 +71,11 @@ public class ClientService implements InterfaceClientService {
 		
 		if(foundClient.isEmpty())
 			return false;
+		
+		Iterable<Order> orders = orderRepo.findByClientCode(id);
+		
+		for(Order o: orders)
+			orderRepo.delete(o);
 		
 		clientRepo.delete(foundClient.get());
 		return true;

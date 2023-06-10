@@ -32,7 +32,7 @@ public class Order {
 	private int code;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "client_code", nullable = true)
+	@JoinColumn(name = "client_code", nullable = false)
 	private Client client;
 	
 	/*@ManyToOne(fetch = FetchType.LAZY)
