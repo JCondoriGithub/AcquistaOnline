@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.acquistionline.model.Client;
 import com.acquistionline.model.Order;
 import com.acquistionline.service.InterfaceOrderService;
 
@@ -51,26 +50,26 @@ public class OrderController {
 	public Order create(@PathVariable String id, @RequestBody Order order) {
 		return orderService.create(id, order);
 	}
-	/*
-	@RequestMapping(value = "api/clients/{id}", method = RequestMethod.PUT)
-	public Client update(@PathVariable String id, @RequestBody Client client) {
+	
+	@RequestMapping(value = "api/orders/{id}", method = RequestMethod.PUT)
+	public Order update(@PathVariable int id, @RequestBody Order order) {
 		
-		Optional<Client> foundClient = clientService.update(id, client);
+		Optional<Order> foundOrder = orderService.update(id, order);
 		
-		if(foundClient.isEmpty())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il cliente non è stato trovato!");
+		if(foundOrder.isEmpty())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "l'ordine non è stato trovato!");
 		
-		return foundClient.get();
+		return foundOrder.get();
 	}
 	
-	@RequestMapping(value = "api/clients/{id}", method = RequestMethod.DELETE)
-	public boolean delete(@PathVariable String id) {
+	@RequestMapping(value = "api/orders/{id}", method = RequestMethod.DELETE)
+	public boolean delete(@PathVariable int id) {
 		
-		boolean isDeleted = clientService.delete(id);
+		boolean isDeleted = orderService.delete(id);
 		
 		if(!isDeleted)
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il cliente non è stato trovato!");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "l'ordine non è stato trovato!");
 		
 		return isDeleted;
-	}*/
+	}
 }
