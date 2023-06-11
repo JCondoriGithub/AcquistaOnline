@@ -10,9 +10,11 @@ public interface InterfaceOrderService {
 
 	public Iterable<Order> getAllOrdersByClientId(String id);
 	
+	public Iterable<Order> getAllOrdersByProductId(String id);
+	
 	public Optional<Order> getById(int id);
 	
-	public Order create(String id, Order order);
+	public Order create(String idc, String idp, Order order);
 	
 	public Optional<Order> update(int id, Order order);
 	

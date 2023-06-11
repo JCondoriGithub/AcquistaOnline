@@ -11,6 +11,8 @@ public interface InterfaceOrderRepo extends CrudRepository<Order, Integer> {
 
 	public Iterable<Order> findByClientCode(String id);
 	
+	public Iterable<Order> findByProductId(String id);
+	
 	@Query("delete from Order o where o.client = ?1")
 	public void deleteByClientId(String id);
 }

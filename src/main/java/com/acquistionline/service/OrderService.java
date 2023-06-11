@@ -7,14 +7,19 @@ import org.springframework.stereotype.Service;
 
 import com.acquistionline.model.Client;
 import com.acquistionline.model.Order;
+import com.acquistionline.model.Product;
 import com.acquistionline.repository.InterfaceClientRepo;
 import com.acquistionline.repository.InterfaceOrderRepo;
+import com.acquistionline.repository.InterfaceProductRepo;
 
 @Service
 public class OrderService implements InterfaceOrderService {
 	
 	@Autowired
 	private InterfaceClientRepo clientRepo;
+	
+	@Autowired
+	private InterfaceProductRepo productRepo;
 	
 	@Autowired
 	private InterfaceOrderRepo orderRepo;
@@ -33,6 +38,11 @@ public class OrderService implements InterfaceOrderService {
 	public Iterable<Order> getAllOrdersByClientId(String id) {
 		return orderRepo.findByClientCode(id);
 	}
+	
+	@Override
+	public Iterable<Order> getAllOrdersByProductId(String id) {
+		return orderRepo.findByProductId(id);
+	}
 
 	@Override
 	public Optional<Order> getById(int id) {
@@ -40,11 +50,15 @@ public class OrderService implements InterfaceOrderService {
 	}
 
 	@Override
-	public Order create(String id, Order order) {
+	public Order create(String idc, String idp, Order order) {
 		
-		Client client = clientRepo.findById(id).get();
+		Client client = clientRepo.findById(idc).get();
+		
+		Product product = productRepo.findById(idp).get();
 		
 		order.setClient(client);
+		
+		order.setProduct(product);
 		
 		return orderRepo.save(order);
 	}
@@ -84,4 +98,5 @@ public class OrderService implements InterfaceOrderService {
 	public void deleteAllOrdersByClientId(String id) {
 		orderRepo.deleteByClientId(id);
 	}
+
 }

@@ -35,6 +35,11 @@ public class OrderController {
 		return orderService.getAllOrdersByClientId(id);
 	}
 	
+	@RequestMapping("api/products/{id}/orders")
+	public Iterable<Order> getAllOrdersByProductId(@PathVariable String id) {
+		return orderService.getAllOrdersByProductId(id);
+	}
+	
 	@RequestMapping("api/orders/{id}")
 	public Order getById(@PathVariable int id) {
 		
@@ -46,9 +51,9 @@ public class OrderController {
 		return foundOrder.get();
 	}
 	
-	@RequestMapping(value = "api/clients/{id}/orders", method = RequestMethod.POST)
-	public Order create(@PathVariable String id, @RequestBody Order order) {
-		return orderService.create(id, order);
+	@RequestMapping(value = "api/clients/{idc}/products/{idp}/orders", method = RequestMethod.POST)
+	public Order create(@PathVariable String idc, @PathVariable String idp, @RequestBody Order order) {
+		return orderService.create(idc, idp, order);
 	}
 	
 	@RequestMapping(value = "api/orders/{id}", method = RequestMethod.PUT)

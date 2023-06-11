@@ -35,9 +35,9 @@ public class Order {
 	@JoinColumn(name = "client_code", nullable = false)
 	private Client client;
 	
-	/*@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_product", nullable = false)
-	private Product product;*/
+	private Product product;
 	
 	@Column(name = "payment_type", nullable = false)
 	private String paymentType;

@@ -2,7 +2,6 @@ package com.acquistionline.model;
 
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -37,6 +36,6 @@ public class Product {
 	
 	private String description;
 	
-	/*@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-	private Set<Order> orders;*/
+	@OneToMany(mappedBy = "product")
+	private Set<Order> orders;
 }
