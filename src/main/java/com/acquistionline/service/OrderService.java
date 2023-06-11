@@ -56,8 +56,19 @@ public class OrderService implements InterfaceOrderService {
 		
 		Product product = productRepo.findById(idp).get();
 		
-		order.setClient(client);
+		for(Order o: orderRepo.findByClientCode(idc)) {
+			
+			if(o.getProduct().getId() == idp) {
+				o.setQtyProduct(o.getQtyProduct() + order.getQtyProduct());
+				
+				if(order.getPaymentType() != null)
+					o.setPaymentType(order.getPaymentType());
+				
+				return orderRepo.save(o);
+			}
+		}
 		
+		order.setClient(client);
 		order.setProduct(product);
 		
 		return orderRepo.save(order);
