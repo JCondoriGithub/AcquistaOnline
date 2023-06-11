@@ -34,6 +34,9 @@ public class Product {
 	@Column(nullable = false)
 	private double price;
 	
+	@Column(name = "qty_available", nullable = false)
+	private int qtyAvailable;
+	
 	private String description;
 	
 	@OneToMany(mappedBy = "product")

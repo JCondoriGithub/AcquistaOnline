@@ -56,10 +56,17 @@ public class OrderService implements InterfaceOrderService {
 		
 		Product product = productRepo.findById(idp).get();
 		
+		if(order.getQtyProduct() > product.getQtyAvailable())
+			return order;
+		
 		for(Order o: orderRepo.findByClientCode(idc)) {
 			
 			if(o.getProduct().getId() == idp) {
+				
 				o.setQtyProduct(o.getQtyProduct() + order.getQtyProduct());
+				
+				product.setQtyAvailable(product.getQtyAvailable() - order.getQtyProduct());
+				productRepo.save(product);
 				
 				if(order.getPaymentType() != null)
 					o.setPaymentType(order.getPaymentType());
@@ -77,16 +84,26 @@ public class OrderService implements InterfaceOrderService {
 	@Override
 	public Optional<Order> update(int id, Order order) {
 
-		Optional<Order> foundOrder =orderRepo.findById(id);
+		Optional<Order> foundOrder = orderRepo.findById(id);
 		
 		if(foundOrder.isEmpty())
+			return Optional.empty();
+		
+		Product product = productRepo.findById(foundOrder.get().getProduct().getId()).get();
+		
+		if(order.getQtyProduct() > product.getQtyAvailable() + foundOrder.get().getQtyProduct())
 			return Optional.empty();
 		
 		if(order.getPaymentType() != null)
 			foundOrder.get().setPaymentType(order.getPaymentType());
 		
-		if(order.getQtyProduct() != 0)
+		if(order.getQtyProduct() != 0) {
+			
+			product.setQtyAvailable((product.getQtyAvailable() + foundOrder.get().getQtyProduct()) - order.getQtyProduct());
+			productRepo.save(product);
+			
 			foundOrder.get().setQtyProduct(order.getQtyProduct());
+		}
 		
 		orderRepo.save(foundOrder.get());
 		
@@ -100,6 +117,10 @@ public class OrderService implements InterfaceOrderService {
 		
 		if(foundOrder.isEmpty())
 			return false;
+		
+		Product product = productRepo.findById(foundOrder.get().getProduct().getId()).get();
+		product.setQtyAvailable(product.getQtyAvailable() + foundOrder.get().getQtyProduct());
+		productRepo.save(product);
 		
 		orderRepo.delete(foundOrder.get());
 		return true;
