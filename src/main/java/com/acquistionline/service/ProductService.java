@@ -48,6 +48,9 @@ public class ProductService implements InterfaceProductService {
 		if(product.getPrice() != 0)
 			foundProduct.get().setPrice(product.getPrice());
 		
+		if(product.getQtyAvailable() != 0)
+			foundProduct.get().setQtyAvailable(product.getQtyAvailable());
+		
 		if(product.getDescription() != null)
 			foundProduct.get().setDescription(product.getDescription());
 		

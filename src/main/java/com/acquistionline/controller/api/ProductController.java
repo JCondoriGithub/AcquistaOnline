@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,45 +27,47 @@ public class ProductController {
 	}
 	
 	@RequestMapping("api/products")
-	public Iterable<Product> getAll() {
-		return productService.getAll();
+	public ResponseEntity<Iterable<Product>> getAll() {
+		Iterable<Product> products = productService.getAll();
+		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 	
 	@RequestMapping("api/products/{id}")
-	public Product getById(@PathVariable String id) {
+	public ResponseEntity<Product> getById(@PathVariable String id) {
 		
 		Optional<Product> foundProduct = productService.getById(id);
 		
 		if(foundProduct.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il prodotto non è stato trovato!");
 		
-		return foundProduct.get();
+		return new ResponseEntity<>(foundProduct.get(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "api/products", method = RequestMethod.POST)
-	public Product create(@RequestBody Product product) {
-		return productService.create(product);
+	public ResponseEntity<Product> create(@RequestBody Product product) {
+		Product productCreated = productService.create(product);
+		return new ResponseEntity<>(productCreated, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "api/products/{id}", method = RequestMethod.PUT)
-	public Product update(@PathVariable String id, @RequestBody Product product) {
+	public ResponseEntity<Product> update(@PathVariable String id, @RequestBody Product product) {
 		
 		Optional<Product> foundProduct = productService.update(id, product);
 		
 		if(foundProduct.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il prodotto non è stato trovato!");
 		
-		return foundProduct.get();
+		return new ResponseEntity<>(foundProduct.get(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "api/products/{id}", method = RequestMethod.DELETE)
-	public boolean delete(@PathVariable String id) {
+	public ResponseEntity<String> delete(@PathVariable String id) {
 		
 		boolean isDeleted = productService.delete(id);
 		
 		if(!isDeleted)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il prodotto non è stato trovato!");
 		
-		return isDeleted;
+		return new ResponseEntity<>("il prodotto è stato eliminato!", HttpStatus.NO_CONTENT);
 	}
 }
