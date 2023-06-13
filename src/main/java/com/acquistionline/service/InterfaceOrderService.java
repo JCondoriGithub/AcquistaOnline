@@ -19,6 +19,6 @@ public interface InterfaceOrderService {
 	public Optional<Order> update(int id, Order order);
 	
 	public boolean delete(int id);
-	
-	public void deleteAllOrdersByClientId(String id);
+		
+	public double getTotPriceByClientId(String id);
 }

@@ -13,6 +13,6 @@ public interface InterfaceOrderRepo extends CrudRepository<Order, Integer> {
 	
 	public Iterable<Order> findByProductId(String id);
 	
-	@Query("delete from Order o where o.client = ?1")
-	public void deleteByClientId(String id);
+	@Query("select sum(o.product.price * o.qtyProduct) from Order o where o.client.code = ?1")
+	public double totPriceByClientId(String id);
 }

@@ -127,8 +127,8 @@ public class OrderService implements InterfaceOrderService {
 	}
 
 	@Override
-	public void deleteAllOrdersByClientId(String id) {
-		orderRepo.deleteByClientId(id);
+	public double getTotPriceByClientId(String id) {
+		return orderRepo.totPriceByClientId(id);
 	}
 
 }

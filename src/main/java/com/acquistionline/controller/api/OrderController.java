@@ -77,4 +77,9 @@ public class OrderController {
 		
 		return isDeleted;
 	}
+	
+	@RequestMapping(value = "api/clients/{id}/orders/products")
+	public double getTotPriceByClientId(@PathVariable String id) {
+		return orderService.getTotPriceByClientId(id);
+	}
 }
