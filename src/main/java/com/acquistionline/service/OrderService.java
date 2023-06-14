@@ -53,27 +53,7 @@ public class OrderService implements InterfaceOrderService {
 	public Order create(String idc, String idp, Order order) {
 		
 		Client client = clientRepo.findById(idc).get();
-		
 		Product product = productRepo.findById(idp).get();
-		
-		if(order.getQtyProduct() > product.getQtyAvailable())
-			return order;
-		
-		for(Order o: orderRepo.findByClientCode(idc)) {
-			
-			if(o.getProduct().getId() == idp) {
-				
-				o.setQtyProduct(o.getQtyProduct() + order.getQtyProduct());
-				
-				product.setQtyAvailable(product.getQtyAvailable() - order.getQtyProduct());
-				productRepo.save(product);
-				
-				if(order.getPaymentType() != null)
-					o.setPaymentType(order.getPaymentType());
-				
-				return orderRepo.save(o);
-			}
-		}
 		
 		order.setClient(client);
 		order.setProduct(product);
@@ -86,24 +66,11 @@ public class OrderService implements InterfaceOrderService {
 
 		Optional<Order> foundOrder = orderRepo.findById(id);
 		
-		if(foundOrder.isEmpty())
-			return Optional.empty();
-		
-		Product product = productRepo.findById(foundOrder.get().getProduct().getId()).get();
-		
-		if(order.getQtyProduct() > product.getQtyAvailable() + foundOrder.get().getQtyProduct())
-			return Optional.empty();
-		
 		if(order.getPaymentType() != null)
 			foundOrder.get().setPaymentType(order.getPaymentType());
 		
-		if(order.getQtyProduct() != 0) {
-			
-			product.setQtyAvailable((product.getQtyAvailable() + foundOrder.get().getQtyProduct()) - order.getQtyProduct());
-			productRepo.save(product);
-			
+		if(order.getQtyProduct() != 0)			
 			foundOrder.get().setQtyProduct(order.getQtyProduct());
-		}
 		
 		orderRepo.save(foundOrder.get());
 		
@@ -118,9 +85,9 @@ public class OrderService implements InterfaceOrderService {
 		if(foundOrder.isEmpty())
 			return false;
 		
-		Product product = productRepo.findById(foundOrder.get().getProduct().getId()).get();
-		product.setQtyAvailable(product.getQtyAvailable() + foundOrder.get().getQtyProduct());
-		productRepo.save(product);
+		Optional<Product> foundproduct = productRepo.findById(foundOrder.get().getProduct().getId());
+		foundproduct.get().setQtyAvailable(foundproduct.get().getQtyAvailable() + foundOrder.get().getQtyProduct());
+		productRepo.save(foundproduct.get());
 		
 		orderRepo.delete(foundOrder.get());
 		return true;
