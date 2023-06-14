@@ -55,6 +55,9 @@ public class OrderService implements InterfaceOrderService {
 		Client client = clientRepo.findById(idc).get();
 		Product product = productRepo.findById(idp).get();
 		
+		product.setQtyAvailable(product.getQtyAvailable() - order.getQtyProduct());
+		productRepo.save(product);
+		
 		order.setClient(client);
 		order.setProduct(product);
 		
@@ -69,8 +72,14 @@ public class OrderService implements InterfaceOrderService {
 		if(order.getPaymentType() != null)
 			foundOrder.get().setPaymentType(order.getPaymentType());
 		
-		if(order.getQtyProduct() != 0)			
+		if(order.getQtyProduct() != 0) {		
+			
+			Product p = productRepo.findById(foundOrder.get().getProduct().getId()).get();
+			p.setQtyAvailable((p.getQtyAvailable() + foundOrder.get().getQtyProduct()) - order.getQtyProduct());
+			productRepo.save(p);
+			
 			foundOrder.get().setQtyProduct(order.getQtyProduct());
+		}
 		
 		orderRepo.save(foundOrder.get());
 		

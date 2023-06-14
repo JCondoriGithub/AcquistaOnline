@@ -71,16 +71,13 @@ public class OrderController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il prodotto selezionato non è disponibile!");
 
 		if(order.getQtyProduct() > foundProduct.get().getQtyAvailable())
-			throw new ResponseStatusException(HttpStatus.CONFLICT, "la quantità del prodotto richiesto supera quella disponibile!");
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "la quantità richiesta del prodotto supera quella disponibile!");
 		
 		for(Order o: orderService.getAllOrdersByClientId(idc)) {
 		
 			if(o.getProduct().getId() == idp)
 				throw new ResponseStatusException(HttpStatus.CONFLICT, "hai già un'ordine per quel prodotto!");
 		}
-		
-		foundProduct.get().setQtyAvailable(foundProduct.get().getQtyAvailable() - order.getQtyProduct());
-		productService.create(foundProduct.get());
 		
 		return orderService.create(idc, idp, order);
 	}
@@ -98,12 +95,6 @@ public class OrderController {
 		
 		if(order.getQtyProduct() > foundProduct.get().getQtyAvailable() + foundOrder.get().getQtyProduct())
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "la quantità richiesta del prodotto supera quella disponibile!");
-
-		if(order.getQtyProduct() != 0) {
-		
-			foundProduct.get().setQtyAvailable((foundProduct.get().getQtyAvailable() + foundOrder.get().getQtyProduct()) - order.getQtyProduct());
-			productService.create(foundProduct.get());
-		}
 		
 		foundOrder = orderService.update(id, order);
 		
