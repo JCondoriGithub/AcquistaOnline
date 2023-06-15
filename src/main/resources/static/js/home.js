@@ -32,3 +32,13 @@ fetch('api/clients/' + user.code + '/orders')
     document.getElementById('totQtyText').appendChild(document.createTextNode(orders.length));
 })
 
+document.getElementById('btnLogout').addEventListener('click', function() {
+    sessionStorage.removeItem('logged-user');
+    window.location.href = "/";
+})
+
+document.getElementById('modalBody').innerHTML = `
+<b>Nome: </b><span>${user.name}</span><br>
+<b>Cognome: </b><span>${user.surname}</span><br>
+<b>Email: </b><span>${user.email}</span>
+`;

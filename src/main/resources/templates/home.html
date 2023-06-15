@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Acquista Online: home</title>
     <link rel="icon" href="data:,">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   </head>
@@ -15,10 +15,35 @@
             <div class="container-fluid">
               <a class="navbar-brand" href="#">
                 <!--<img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">-->
-                Benvenuto:  <bold id="userGreeting"></bold>
+                Benvenuto:  <b id="userGreeting"></b>
               </a>
             </div>
           </nav>
+
+          <button type="button" class="btn btn-danger" id="btnLogout">Logout</button>
+
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            I miei dati
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Dati Utente</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <ol class="list-group list-group-numbered">
             <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -48,12 +73,6 @@
             </thead>
 
             <tbody id="tblBody">
-              <tr>
-                <td>Cuffie JBL</td>
-                <td>6</td>
-                <td>carta di credito</td>
-                <td>23.6</td>
-              </tr>
           
             </tbody>
           
