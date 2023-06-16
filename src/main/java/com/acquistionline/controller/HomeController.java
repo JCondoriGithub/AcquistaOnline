@@ -11,13 +11,18 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping("/client")
+    @RequestMapping("client")
     public String createClient() {
         return "createClient";
     }
 
-    @RequestMapping("/home")
+    @RequestMapping("home")
     public String home() {
         return "home";
+    }
+
+    @RequestMapping("products")
+    public String products() {
+        return "products";
     }
 }
