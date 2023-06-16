@@ -16,25 +16,33 @@
         </div>
       </nav>
 
-      <div class="row">
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Nome" aria-label="First name">
+      <form>
+
+        <div class="row">
+          <div class="col">
+            <label for="inputName" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="inputName" placeholder="AAAA" aria-label="First name">
+          </div>
+          <div class="col">
+            <label for="inputSurname" class="form-label">Cognome</label>
+            <input type="text" class="form-control" id="inputSurname" placeholder="BBBB" aria-label="Last name">
+          </div>
         </div>
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Cognome" aria-label="Last name">
+
+        <div class="row">
+          <div class="col-md-6">
+            <label for="inputCode" class="form-label">Codice cliente</label>
+            <input type="text" class="form-control" id="inputCode" placeholder="AA00">
+          </div>
+          <div class="col-md-6">
+            <label for="inputEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="inputEmail" placeholder="example@mail.hotmail.it">
+          </div>      
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <label for="inputCode" class="form-label">Codice cliente</label>
-          <input type="text" class="form-control" id="inputCode">
-        </div>
-        <div class="col-md-6">
-          <label for="inputEmail" class="form-label">Email</label>
-          <input type="email" class="form-control" id="inputEmail">
-        </div>      
-            
-      </div>
+
+        <button type="button" class="btn btn-primary btn-lg" id="btnCreateClient">Registrati</button>
+        <button type="button" class="btn btn-secondary btn-lg" id="btnBack">Indietro</button>
+      </form>
 
     </div>
     
