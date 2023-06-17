@@ -25,4 +25,9 @@ public class HomeController {
     public String products() {
         return "products";
     }
+
+    @RequestMapping("order")
+    public String order() {
+        return "order";
+    }
 }
