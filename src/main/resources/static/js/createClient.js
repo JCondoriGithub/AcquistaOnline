@@ -28,7 +28,7 @@ function createClient() {
     }).then(res => {
         if(res.status == 201) {
             alert('ora sei registrato!');
-            window.location.href = "login";
+            window.location.href = "/";
         }
     })
 }

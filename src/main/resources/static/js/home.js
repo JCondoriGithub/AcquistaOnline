@@ -3,6 +3,19 @@ const user = JSON.parse(loggedUser);
 
 document.getElementById('userGreeting').appendChild(document.createTextNode(user.name + ' ' + user.surname));
 
+document.getElementById('btnDeleteAccount').addEventListener('click', function() {
+    fetch('api/clients/' + user.code, { method: 'DELETE' })
+    .then(res => {
+
+        if(res.status == 204) {
+
+            alert('sesso con tea arrigoni');
+            sessionStorage.removeItem('logged-user');
+            window.location.href = "/";
+        }
+    })
+})
+
 fetch('api/clients/' + user.code + '/orders/products')
 .then(res => res.json())
 .then(totPrice => {
