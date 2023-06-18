@@ -25,7 +25,7 @@ fetch('api/products')
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'btn btn-primary';
-        btn.appendChild(document.createTextNode('Ordina'));
+        btn.appendChild(document.createTextNode('Ordinalo ora'));
         btn.addEventListener('click', function() {
             order(arrProducts[i]);
         });

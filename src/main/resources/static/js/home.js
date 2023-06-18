@@ -14,23 +14,51 @@ fetch('api/clients/' + user.code + '/orders')
 .then(res => res.json())
 .then(orders => {
 
-    let newOrder = ``;
-
     for(let i = 0; i < orders.length; i++) {
 
-        newOrder += `              
-    <tr>
-        <td>${orders[i].product.name}</td>
-        <td>${orders[i].qtyProduct}</td>
-        <td>${orders[i].paymentType}</td>
-        <td>${orders[i].product.price} €</td>
-      </tr>
-    `;
+        const tr = document.createElement('tr');
+
+        const td1 = document.createElement('td');
+        td1.appendChild(document.createTextNode(orders[i].product.name));
+        tr.appendChild(td1);
+
+        const td2 = document.createElement('td');
+        td2.appendChild(document.createTextNode(orders[i].qtyProduct));
+        tr.appendChild(td2);
+
+        const td3 = document.createElement('td');
+        td3.appendChild(document.createTextNode(orders[i].paymentType));
+        tr.appendChild(td3);
+
+        const td4 = document.createElement('td');
+        td4.appendChild(document.createTextNode(orders[i].product.price));
+        tr.appendChild(td4);
+
+        const btnDelete = document.createElement('button');
+        btnDelete.type = 'button';
+        btnDelete.className = 'btn btn-danger';
+        btnDelete.appendChild(document.createTextNode('Elimina'));
+        btnDelete.addEventListener('click', function() {
+            deleteOrder(orders[i]);
+        });
+        tr.appendChild(btnDelete);
+
+        document.getElementById('tblBody').appendChild(tr);
     }
 
-    document.getElementById('tblBody').innerHTML = newOrder;
     document.getElementById('totQtyText').appendChild(document.createTextNode(orders.length));
 })
+
+function deleteOrder(order) {
+    fetch('api/orders/' + order.code, { method: 'DELETE' })
+    .then(res => {
+
+        if(res.status == 204) {
+            alert('ordine eliminato!');
+            window.location.href = "home";
+        }
+    })
+}
 
 document.getElementById('btnLogout').addEventListener('click', function() {
     sessionStorage.removeItem('logged-user');
