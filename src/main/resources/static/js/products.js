@@ -1,7 +1,6 @@
 fetch('api/products')
 .then(res => res.json())
 .then(arrProducts => {
-console.log(arrProducts)
 
     for(let i = 0; i < arrProducts.length; i++) {
 

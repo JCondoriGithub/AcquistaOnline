@@ -26,7 +26,9 @@ function createClient() {
             'Content-Type': 'application/json'
         }, body: jsonClient
     }).then(res => {
-        if(res.status == 201)
+        if(res.status == 201) {
             alert('ora sei registrato!');
+            window.location.href = "login";
+        }
     })
 }
