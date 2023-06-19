@@ -1,34 +1,41 @@
+import { sendDelete, sendGet } from "./requests.js";
+
 const loggedUser = sessionStorage.getItem('logged-user');
 const user = JSON.parse(loggedUser);
 
 document.getElementById('userGreeting').appendChild(document.createTextNode(user.name + ' ' + user.surname));
 
-document.getElementById('btnDeleteAccount').addEventListener('click', function() {
-    fetch('api/clients/' + user.code, { method: 'DELETE' })
-    .then(res => {
+document.getElementById('btnDeleteAccount').addEventListener('click', deleteUser);
 
-        if(res.status == 204) {
+async function deleteUser() {
 
-            alert('sesso con tea arrigoni');
-            sessionStorage.removeItem('logged-user');
-            window.location.href = "/";
-        }
-    })
-})
+    let response = await sendDelete('api/clients/' + user.code);
 
-fetch('api/clients/' + user.code + '/orders/products')
-.then(res => res.json())
-.then(totPrice => {
+    if(response.status == 204) {
+
+        alert('ora non sei più registrato a questo sito');
+        sessionStorage.removeItem('logged-user');
+        window.location.href = "/";
+    }
+}
+
+async function getTotPriceOrders() {
+
+    let response = await sendGet('api/clients/' + user.code + '/orders/products');
+    let totPrice = await response.json();
 
     document.getElementById('totPriceText').appendChild(document.createTextNode(totPrice + ' €'));
-})
+}
 
-fetch('api/clients/' + user.code + '/orders')
-.then(res => res.json())
-.then(orders => {
+getTotPriceOrders();
 
-    for(let i = 0; i < orders.length; i++) {
+async function createOrdersTbl() {
 
+    let response = await sendGet('api/clients/' + user.code + '/orders');
+    let orders = await response.json();
+
+    for(let i = 0; i < orders.length; i++) {        
+        
         const tr = document.createElement('tr');
 
         const td1 = document.createElement('td');
@@ -60,17 +67,20 @@ fetch('api/clients/' + user.code + '/orders')
     }
 
     document.getElementById('totQtyText').appendChild(document.createTextNode(orders.length));
-})
+}
 
-function deleteOrder(order) {
-    fetch('api/orders/' + order.code, { method: 'DELETE' })
-    .then(res => {
+createOrdersTbl();
 
-        if(res.status == 204) {
-            alert('ordine eliminato!');
-            window.location.href = "home";
-        }
-    })
+
+async function deleteOrder(order) {
+
+    let response = await sendDelete('api/orders/' + order.code);
+
+    if(response.status == 204) {
+
+        alert('ordine eliminato!');
+        window.location.href = "home";
+    }
 }
 
 document.getElementById('btnLogout').addEventListener('click', function() {

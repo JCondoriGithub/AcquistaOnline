@@ -1,6 +1,8 @@
+import { sendPost } from "./requests.js";
+
 document.getElementById('btnCreateClient').addEventListener('click', createClient);
 
-function createClient() {
+async function createClient() {
 
     const name = document.getElementById('inputName').value;
     const surname = document.getElementById('inputSurname').value;
@@ -20,15 +22,11 @@ function createClient() {
     const newClient = new Client(name, surname, code, email);
     const jsonClient = JSON.stringify(newClient);
 
-    fetch('api/clients', {
-        method: 'POST', headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }, body: jsonClient
-    }).then(res => {
-        if(res.status == 201) {
-            alert('ora sei registrato!');
-            window.location.href = "/";
-        }
-    })
+    let response = await sendPost('api/clients', jsonClient);
+
+    if(response.status == 201) {
+
+        alert('ora sei registrato!');
+        window.location.href = "/";
+    }
 }
