@@ -11,61 +11,67 @@
     
     <div class="container">
 
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">
-                <!--<img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">-->
-                Benvenuto:  <b id="userGreeting"></b>
-              </a>
-            </div>
-          </nav>
+      <nav class="p-3 mb-2 bg-primary-subtle text-emphasis-primary d-flex justify-content-center">
+        <span class="text-center fs-2 text-primary">Benvenuto: <span class="fs-2 fw-bold text-primary-emphasis" id="userGreeting"></span></span>
+      </nav>
 
-          <button type="button" class="btn btn-danger" id="btnLogout">Logout</button>
+      <div style="display: flex; justify-content: space-around;">
 
-          <a href="/products"><button type="button" class="btn btn-warning">Ordina ora</button></a>
-
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            I miei dati
-          </button>
-
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Dati Utente</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="w-50 p-3 mt-5">
+            <ol class="list-group list-group-numbered">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Prezzo totale degli ordini</div>
                 </div>
-                <div class="modal-body" id="modalBody">
-                
+                <span class="badge bg-primary rounded-pill" id="totPriceText"></span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Numero degli ordini</div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-dark" id="btnDeleteAccount">Elimina account</button>
-                </div>
-              </div>
-            </div>
+                <span class="badge bg-primary rounded-pill" id="totQtyText"></span>
+              </li>
+            </ol>
           </div>
 
-          <ol class="list-group list-group-numbered">
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-              <div class="ms-2 me-auto">
-                <div class="fw-bold">Prezzo totale degli ordini</div>
-              </div>
-              <span class="badge bg-primary rounded-pill" id="totPriceText"></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-              <div class="ms-2 me-auto">
-                <div class="fw-bold">Numero degli ordini</div>
-              </div>
-              <span class="badge bg-primary rounded-pill" id="totQtyText"></span>
-            </li>
-          </ol>
+          <div class="w-25 p-3 mt-5 border border-primary rounded" style="display: flex; flex-direction: column;">
 
-          <h4>Ecco i tuoi ordini</h4>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              I miei dati
+            </button>
 
-          <table class="table table-striped" id="tblOrders">
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Dati Utente</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body" id="modalBody">
+                  
+                  </div>
+                  <div class="modal-footer">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                      <button type="button" class="btn btn-danger" id="btnDeleteAccount">Elimina account</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a href="products"><button type="button" class="btn btn-warning w-100 p-2 mt-2">Ordina ora</button></a>
+
+            <button type="button" class="btn btn-danger mt-2" id="btnLogout">Logout</button>
+
+          </div>
+
+        </div>
+
+        <p class="text-center fs-2 text-primary mt-4">Ecco i tuoi ordini</p>
+
+          <table class="table table-striped mt-4" id="tblOrders">
             <thead>
               <tr>
                 <th scope="col">Prodotto</th>

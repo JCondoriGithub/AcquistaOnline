@@ -22,9 +22,13 @@ async function deleteUser() {
 async function getTotPriceOrders() {
 
     let response = await sendGet('api/clients/' + user.code + '/orders/products');
-    let totPrice = await response.json();
 
-    document.getElementById('totPriceText').appendChild(document.createTextNode(totPrice + ' €'));
+    if(response.status != 200) {
+        document.getElementById('totPriceText').appendChild(document.createTextNode('0 €'));
+    } else {
+        let totPrice = await response.json();
+        document.getElementById('totPriceText').appendChild(document.createTextNode(totPrice + ' €'));
+    }
 }
 
 getTotPriceOrders();
@@ -43,7 +47,7 @@ async function createOrdersTbl() {
         tr.appendChild(td1);
 
         const td2 = document.createElement('td');
-        td2.appendChild(document.createTextNode(orders[i].qtyProduct));
+        td2.appendChild(document.createTextNode(orders[i].qtyProduct + ' unità'));
         tr.appendChild(td2);
 
         const td3 = document.createElement('td');
@@ -51,7 +55,7 @@ async function createOrdersTbl() {
         tr.appendChild(td3);
 
         const td4 = document.createElement('td');
-        td4.appendChild(document.createTextNode(orders[i].product.price));
+        td4.appendChild(document.createTextNode(orders[i].product.price + ' €'));
         tr.appendChild(td4);
 
         const btnDelete = document.createElement('button');
@@ -89,6 +93,7 @@ document.getElementById('btnLogout').addEventListener('click', function() {
 })
 
 document.getElementById('modalBody').innerHTML = `
+<b>Codice: </b><span>${user.code}</span><br>
 <b>Nome: </b><span>${user.name}</span><br>
 <b>Cognome: </b><span>${user.surname}</span><br>
 <b>Email: </b><span>${user.email}</span>
