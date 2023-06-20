@@ -1,3 +1,5 @@
+import { sendPost } from "./requests.js";
+
 const productOrder = sessionStorage.getItem('product-order');
 const product = JSON.parse(productOrder);
 
@@ -13,7 +15,7 @@ document.getElementById('productRecap').innerHTML = `
 
 document.getElementById('btnOrder').addEventListener('click', createOrder);
 
-function createOrder() {
+async function createOrder() {
 
     const paymentType = document.getElementById('inputPayment').value;
     const qty = document.getElementById('inputQty').value;
@@ -27,21 +29,14 @@ function createOrder() {
     }
 
     const newOrder = new Order(paymentType, qty);
-    const jsonProduct = JSON.stringify(newOrder);
+    const jsonOrder = JSON.stringify(newOrder);
 
-    fetch('api/clients/' + user.code + '/products/' + product.id + '/orders', {
-        method: 'POST', headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }, body: jsonProduct
-    }).then(res => {
+    let response = await sendPost('api/clients/' + user.code + '/products/' + product.id + '/orders', jsonOrder);
 
-        if(res.status == 201) {
-            alert('prodotto ordinato!');
-            window.location.href = "products";
-        } else {
-            alert('Ops! Qualcosa è andato storto...');
-        }
-
-    })
+    if(response.status == 201) {
+        alert('prodotto ordinato!');
+        window.location.href = "products";
+    } else {
+        alert('Ops! Qualcosa è andato storto...');
+    }
 }
