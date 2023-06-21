@@ -7,10 +7,11 @@ const loggedUser = sessionStorage.getItem('logged-user');
 const user = JSON.parse(loggedUser);
 
 document.getElementById('productRecap').innerHTML = `
-<h4>Prodotto da ordinare: </h4><span>${product.name}</span>
-<h4>Prezzo: </h4><span>${product.price}</span>
-<h4>Unità disponibili: </h4><span>${product.qtyAvailable}</span>
-<h4>Descrizione: </h4><span>${product.description}</span>
+
+    <p class="text-center fs-3 text-primary-emphasis">Prodotto da ordinare: <span class="fs-3 text-primary">${product.name}</span></p>
+    <p class="text-center fs-3 text-primary-emphasis">Prezzo: <span class="fs-3 text-primary">${product.price} €</span></p>
+    <p class="text-center fs-3 text-primary-emphasis">Unità disponibili: <span class="fs-3 text-primary">${product.qtyAvailable}</span></p>
+    <p class="text-center fs-3 text-primary-emphasis">Descrizione: <span class="fs-3 text-primary">${product.description}</span></p>
 `;
 
 document.getElementById('btnOrder').addEventListener('click', createOrder);

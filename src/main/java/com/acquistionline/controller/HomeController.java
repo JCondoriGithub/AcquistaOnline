@@ -28,6 +28,6 @@ public class HomeController {
 
     @RequestMapping("order")
     public String order() {
-        return "order";
+        return "createOrder";
     }
 }
